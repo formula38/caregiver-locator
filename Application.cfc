@@ -1,6 +1,13 @@
 component {
-    this.name = "ChildcareLocatorApp";
+    this.name = "CaregiverLocatorApp";
     this.datasource = "childcareDS";
+    this.ormenabled = true;
+    this.ormsettings = {
+        dbCreate = "update",
+        cfclocation = "/components",
+        dialect = "PostgreSQLDialect"
+    };
+
     this.sessionmanagement = true;
     this.sessiontimeout = createTimespan(0, 1, 0, 0);
 
