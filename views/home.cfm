@@ -1,12 +1,12 @@
 <form action="results.cfm" method="get">
-    <label for="loction">Enter Location:</label>
-    <input type="text" id="loction" name="location">
+    <label for="location">Enter Location:</label>
+    <input type="text" id="location" name="location">
 
-    <label for="maxPrice">Maximum Price:</label>
-    <input type="number" id="maxPrice" name="maxPrice">
+    <label for="specialization">Specialization:</label>
+    <input type="text" id="specialization" name="specialization">
 
-    <label for="subsidies">Subsidies Available:</label>
-    <input type="checkbox" id="subsidies" name="subsidiesAvailable">
+    <label for="availability">Only Available Providers:</label>
+    <input type="checkbox" id="availability" name="availability" value="true">
 
-    <input type="submit" value="Search Childcare">
+    <input type="submit" value="Search Caregivers">
 </form>

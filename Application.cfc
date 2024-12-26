@@ -1,9 +1,9 @@
 component {
     this.name = "CaregiverLocatorApp";
-    this.datasource = "childcareDS";
+    this.datasource = "caregiverDS";
     this.ormenabled = true;
     this.ormsettings = {
-        dbCreate = "update",
+        dbCreate = "create",
         cfclocation = "/components",
         dialect = "PostgreSQLDialect"
     };
@@ -13,7 +13,7 @@ component {
 
     // Java Integration
     this.javaSettings = {
-        loadPaths = ["/java"],
+        loadPaths = [expandPath("./java")],
         watchInterval = 60,
         dynamicLoading = true
     };

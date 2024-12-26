@@ -1,0 +1,11 @@
+{
+    "app":{
+        "cfengine":"adobe@2023"
+    },
+    "name":"caregiver-locator",
+    "web":{
+        "http":{
+            "port":"8500"
+        }
+    }
+}
