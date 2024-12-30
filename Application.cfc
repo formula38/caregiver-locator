@@ -23,4 +23,11 @@ component {
         // Logic for initialization application
         application.voucherService = createObject("java", "VoucherService").init();
     }
+
+    // OAuth Authentication Check
+    function onRequestStart(string targetPage) {
+        if (!structKeyExists(session, "user") && listLast(targetPage, "/") NEQ "oauth.cfm") {
+            location("oauth.cfm");
+        }
+    }
 }
