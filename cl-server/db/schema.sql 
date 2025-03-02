@@ -1,0 +1,28 @@
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    firstName VARCHAR(50),
+    lastName VARCHAR(50),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) CHECK (role IN ('recipient', 'provider')),
+    careServices TEXT, -- Only used by providers
+    location VARCHAR(100),
+    rating DECIMAL(3,2) DEFAULT 0.0
+);
+
+CREATE TABLE reviews (
+    id SERIAL PRIMARY KEY,
+    reviewerId INT REFERENCES users(id),
+    revieweeId INT REFERENCES users(id),
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE messages (
+    id SERIAL PRIMARY KEY,
+    senderId INT REFERENCES users(id),
+    receiverId INT REFERENCES users(id),
+    messageText TEXT,
+    sentAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

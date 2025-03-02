@@ -1,0 +1,14 @@
+version: '3'
+services:
+  coldfusion:
+    build: .
+    ports:
+      - "8500:8500"
+    volumes:
+      - .:/app
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: cfuser
+      POSTGRES_PASSWORD: cfpass
+      POSTGRES_DB: ihss_db
