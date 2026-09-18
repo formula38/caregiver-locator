@@ -1,0 +1,20 @@
+<section class="panel">
+  <h1>Saved matches</h1>
+  @if (error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+  <ul class="cards">
+    @for (match of items; track match.id) {
+      <li class="card">
+        <h2>{{ match.recipientName }} → {{ match.providerName }}</h2>
+        <p>Status: {{ match.status }}</p>
+        @if (isProvider && match.status === 'pending') {
+          <button type="button" (click)="accept(match.id)">Accept</button>
+        }
+        <a [routerLink]="['/messages', otherUserId(match)]">Message</a>
+      </li>
+    } @empty {
+      <li class="muted">No saved matches yet.</li>
+    }
+  </ul>
+</section>

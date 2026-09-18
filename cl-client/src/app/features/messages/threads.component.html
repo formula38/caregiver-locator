@@ -1,0 +1,16 @@
+<section class="panel">
+  <h1>Messages</h1>
+  @if (error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+  <ul class="cards">
+    @for (thread of items; track thread.userId) {
+      <li class="card">
+        <h2><a [routerLink]="['/messages', thread.userId]">{{ thread.name }}</a></h2>
+        <p>{{ thread.lastMessage }}</p>
+      </li>
+    } @empty {
+      <li class="muted">No conversations yet. Save a match, then message from there.</li>
+    }
+  </ul>
+</section>

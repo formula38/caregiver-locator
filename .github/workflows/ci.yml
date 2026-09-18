@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cl-client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: cl-client/package-lock.json
+      - uses: browser-actions/setup-chrome@v1
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run test:ci
+      - run: docker build -t cl-client .
+
+  server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build server image
+        run: docker build -t cl-server ./cl-server
+      - name: Start API stack
+        run: |
+          cp .env.example .env
+          docker compose up -d --build db server
+      - name: Wait for health
+        run: |
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:8500/api/health; then
+              exit 0
+            fi
+            sleep 5
+          done
+          docker compose logs server
+          exit 1
+      - name: Run TestBox
+        run: |
+          curl -fsS "http://127.0.0.1:8500/tests/runner.cfm?reporter=json" | tee /tmp/testbox.json
+          python3 - <<'PY'
+          import json, sys
+          raw = open("/tmp/testbox.json").read()
+          start = raw.find("{")
+          data = json.loads(raw[start:])
+          fail = int(data.get("totalFail", data.get("totalfail", 1)))
+          err = int(data.get("totalError", data.get("totalerror", 1)))
+          print(data)
+          if fail or err:
+              sys.exit(1)
+          PY
+      - name: Stop stack
+        if: always()
+        run: docker compose down -v

@@ -1,0 +1,24 @@
+{
+    "name": "cl-server",
+    "profile": "development",
+    "app": {
+        "cfengine": "lucee@5.4.6+9"
+    },
+    "web": {
+        "host": "0.0.0.0",
+        "http": {
+            "port": "${PORT:8500}"
+        },
+        "rewritesEnable": true,
+        "rewritesConfig": "urlrewrite.xml",
+        "rewrites": {
+            "enable": true,
+            "config": "urlrewrite.xml"
+        },
+        "webroot": "."
+    },
+    "openBrowser": false,
+    "JVM": {
+        "heapSize": 512
+    }
+}

@@ -1,0 +1,11 @@
+-- Demo identities are applied by services.SeedService on first boot so
+-- password hashes match generatePBKDFKey(PBKDF2WithHmacSHA256).
+-- SeedService runs when SEED_DEMO_DATA=true and the users table is empty.
+--
+-- email                         role        location   care_services
+-- recipient@example.test        recipient   Oakland
+-- avery.nguyen@example.test     provider    Oakland    personal_care,medication
+-- jordan.lee@example.test       provider    Oakland    companion,personal_care
+-- sam.okonkwo@example.test      provider    Berkeley   respite,personal_care
+--
+-- Password for every demo account: password123

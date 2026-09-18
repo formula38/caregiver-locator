@@ -1,0 +1,33 @@
+<section class="panel">
+  <h1>Reviews</h1>
+  <p class="lede">A review updates the provider rating used by match search.</p>
+  @if (error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+  <form class="filters" [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Reviewee user id
+      <input type="number" min="1" formControlName="revieweeId" />
+    </label>
+    <label>
+      Rating
+      <input type="number" min="1" max="5" formControlName="rating" />
+    </label>
+    <label>
+      Comment
+      <input type="text" formControlName="comment" />
+    </label>
+    <button type="submit">Submit review</button>
+  </form>
+  <ul class="cards">
+    @for (review of items; track review.id) {
+      <li class="card">
+        <h2>{{ review.reviewerName }} → user {{ review.revieweeId }}</h2>
+        <p>{{ review.rating }} / 5</p>
+        <p>{{ review.comment }}</p>
+      </li>
+    } @empty {
+      <li class="muted">No reviews yet.</li>
+    }
+  </ul>
+</section>

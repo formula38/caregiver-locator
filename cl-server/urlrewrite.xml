@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite>
+    <rule>
+        <condition type="request-filename" operator="notdir"/>
+        <condition type="request-filename" operator="notfile"/>
+        <from>^/(.*)$</from>
+        <to type="passthrough">/index.cfm/$1</to>
+    </rule>
+</urlrewrite>

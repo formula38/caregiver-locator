@@ -1,0 +1,33 @@
+substitutions:
+  _REGION: us-central1
+  _REPOSITORY: cl-apps
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    id: build-server
+    args:
+      - build
+      - -t
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-server:${SHORT_SHA}
+      - -t
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-server:latest
+      - ./cl-server
+
+  - name: gcr.io/cloud-builders/docker
+    id: build-client
+    args:
+      - build
+      - -t
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-client:${SHORT_SHA}
+      - -t
+      - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-client:latest
+      - ./cl-client
+
+images:
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-server:${SHORT_SHA}
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-server:latest
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-client:${SHORT_SHA}
+  - ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/cl-client:latest
+
+options:
+  logging: CLOUD_LOGGING_ONLY

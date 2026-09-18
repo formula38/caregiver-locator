@@ -1,0 +1,5 @@
+{
+    "adminPassword": "commandbox",
+    "inspectTemplate": "once",
+    "requestTimeout": "0,0,2,0"
+}

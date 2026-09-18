@@ -1,0 +1,11 @@
+logs/
+testbox/
+jwtcfml/
+modules/
+WEB-INF/
+.engine/
+.CommandBox/
+*.log
+.git
+.gitignore
+README.md

@@ -1,0 +1,43 @@
+{
+    "name": "caregiver-locator-server",
+    "version": "0.1.0",
+    "author": "formula38",
+    "type": "projects",
+    "location": "",
+    "directory": "",
+    "createPackageDirectory": false,
+    "packageDirectory": "",
+    "homepage": "",
+    "documentation": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/formula38/caregiver-locator"
+    },
+    "bugs": "",
+    "slug": "caregiver-locator-server",
+    "shortDescription": "JSON API for the caregiver matching lab",
+    "keywords": ["lucee", "caregiver"],
+    "private": true,
+    "engines": [
+        {
+            "type": "lucee",
+            "version": ">=5.4.0"
+        }
+    ],
+    "devDependencies": {
+        "testbox": "^5.3.0"
+    },
+    "installPaths": {
+        "jwt-cfml": "jwtcfml/",
+        "testbox": "testbox/"
+    },
+    "dependencies": {
+        "jwt-cfml": "^1.2.0"
+    },
+    "testbox": {
+        "runner": "/tests/runner.cfm",
+        "directory": "tests.specs",
+        "recurse": true,
+        "reporter": "text"
+    }
+}

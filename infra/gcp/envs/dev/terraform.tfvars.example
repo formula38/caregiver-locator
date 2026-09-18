@@ -1,0 +1,6 @@
+project_id           = "REPLACE_ME"
+region               = "us-central1"
+name_prefix          = "cl"
+server_image         = "us-central1-docker.pkg.dev/REPLACE_ME/cl-apps/cl-server:latest"
+client_image         = "us-central1-docker.pkg.dev/REPLACE_ME/cl-apps/cl-client:latest"
+cors_allowed_origins = "http://localhost:4000"

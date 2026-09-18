@@ -1,0 +1,25 @@
+<section class="panel">
+  <h1>Profile</h1>
+  <p class="lede">Location and care services drive match search. Rating comes from reviews.</p>
+  @if (error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+  @if (saved) {
+    <p class="notice">Saved.</p>
+  }
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>
+      Location
+      <input type="text" formControlName="location" placeholder="Oakland" />
+    </label>
+    <label>
+      Care services
+      <input type="text" formControlName="careServices" placeholder="personal_care,companion" />
+    </label>
+    <label>
+      Bio
+      <textarea formControlName="bio" rows="4"></textarea>
+    </label>
+    <button type="submit" [disabled]="pending">{{ pending ? 'Saving…' : 'Save profile' }}</button>
+  </form>
+</section>

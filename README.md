@@ -8,24 +8,30 @@ System38 maps this under Coldchain / labs. It is not a live product and not IHSS
 
 | Path | Stack | State |
 | --- | --- | --- |
-| `cl-client/` | Angular 19 + SSR (`ng serve` → `:4200`) | Still the CLI scaffold (`title = 'cl-client'`) |
-| `cl-server/` | CFML (ColdFusion/Lucee-style) handlers, models, and API CFC files | Matching, profiles, reviews, users, messages |
-| `cl-server/docker/` | Compose: app on `:8500` plus local Postgres | Local only |
-
-Client README is the Angular CLI default. Server root README is empty — this file is the map.
+| `cl-client/` | Angular 19 + SSR (`ng serve` → `:4200`, compose → `:4000`) | Auth, profile, match search, saved matches, reviews, messages |
+| `cl-server/` | Lucee 5 / CommandBox JSON API (`:8500`) | Users, profiles, matches, reviews, messages |
+| `docker-compose.yml` | Client + server + local Postgres | Local only |
+| `infra/gcp/` | Cloud Run, Cloud SQL, Artifact Registry, Secret Manager | Plan-only until the GCP project is confirmed |
 
 ## Local
 
 ```bash
-cd cl-client
-npm install
-npm start
+cp .env.example .env
+docker compose up --build
 ```
 
-Server compose lives under `cl-server/docker/`. Change the compose Postgres credentials before anything leaves loopback.
+- API: `http://localhost:8500/api/health`
+- Client: `http://localhost:4000`
+- Angular without Docker: `cd cl-client && npm install && npm start` (talks to the API on `:8500`)
+
+Demo password for every seeded account is `password123`. Identities are listed in `cl-server/db/seed.sql`.
+
+Change the compose Postgres password and `JWT_SECRET` before anything leaves loopback.
+
+GCP: copy `infra/gcp/envs/dev/terraform.tfvars.example` and run `terraform plan` only until the target project is confirmed. Do not apply against `sq-partner-nonprod` by accident.
 
 ## Do not
 
 - Point this at real caregiver or IHSS member data
-- Treat the Angular app as finished UI
+- Treat the Angular app as a finished product UI
 - Start this stack from the System38 hub

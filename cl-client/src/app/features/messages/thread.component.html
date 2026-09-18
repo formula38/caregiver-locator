@@ -1,0 +1,23 @@
+<section class="panel">
+  <p><a routerLink="/messages">All threads</a></p>
+  <h1>Conversation</h1>
+  @if (error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+  <ul class="thread">
+    @for (message of items; track message.id) {
+      <li [class.mine]="message.senderId === me">
+        <p>{{ message.messageText }}</p>
+      </li>
+    } @empty {
+      <li class="muted">No messages yet.</li>
+    }
+  </ul>
+  <form class="composer" [formGroup]="form" (ngSubmit)="send()">
+    <label>
+      Message
+      <input type="text" formControlName="messageText" />
+    </label>
+    <button type="submit">Send</button>
+  </form>
+</section>

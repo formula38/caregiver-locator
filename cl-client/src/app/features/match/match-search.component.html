@@ -1,0 +1,41 @@
+<section class="panel">
+  <h1>Find caregivers</h1>
+  <p class="lede">Search providers by care type, city, and minimum review rating.</p>
+  @if (error) {
+    <p class="error" role="alert">{{ error }}</p>
+  }
+  @if (notice) {
+    <p class="notice">{{ notice }}</p>
+  }
+  <form class="filters" [formGroup]="form" (ngSubmit)="search()">
+    <label>
+      Care needed
+      <input type="text" formControlName="requiredCare" />
+    </label>
+    <label>
+      Location
+      <input type="text" formControlName="location" />
+    </label>
+    <label>
+      Min rating
+      <input type="number" min="0" max="5" step="0.5" formControlName="rating" />
+    </label>
+    <button type="submit" [disabled]="pending">{{ pending ? 'Searching…' : 'Search' }}</button>
+  </form>
+
+  <ul class="cards">
+    @for (provider of results; track provider.id) {
+      <li class="card">
+        <h2>{{ provider.firstName }} {{ provider.lastName }}</h2>
+        <p>{{ provider.location }} · {{ provider.rating | number: '1.1-2' }}</p>
+        <p>{{ provider.careServices }}</p>
+        <p>{{ provider.bio }}</p>
+        @if (isRecipient) {
+          <button type="button" (click)="save(provider.id)">Save match</button>
+        }
+      </li>
+    } @empty {
+      <li class="muted">No providers match those filters yet.</li>
+    }
+  </ul>
+</section>
